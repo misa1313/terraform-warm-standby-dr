@@ -1,0 +1,24 @@
+---
+- name: Configure Apache Web Server
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install Apache
+      yum:
+        name: 
+          - httpd
+          - telnet
+        state: present
+
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Create index.html file
+      copy:
+        src: /home/ec2-user/index.html
+        dest: /var/www/html/index.html
+        remote_src: yes
+
